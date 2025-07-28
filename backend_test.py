@@ -826,31 +826,55 @@ class BLSBackendTester:
             self.log_test("Delete Credential", False, f"Exception: {str(e)}")
 
     def run_all_tests(self):
-        """Run all backend tests"""
-        print(f"🚀 Starting BLS-SPANISH Backend API Tests")
+        """Run all backend tests including NEW applicant and credential management APIs"""
+        print(f"🚀 Starting BLS-SPANISH Backend API Comprehensive Tests")
         print(f"Backend URL: {BASE_URL}")
         print(f"API URL: {API_URL}")
         print("=" * 80)
         
-        # Test core endpoints
+        # Test core existing endpoints
+        print("📋 TESTING CORE EXISTING APIs")
+        print("-" * 40)
         self.test_root_endpoint()
-        
-        # Test NEW visa types functionality (priority)
-        self.test_visa_types_endpoint()
-        self.test_system_config_endpoint()
-        self.test_system_start_with_visa_config()
-        
-        # Test Playwright browser functionality
-        self.test_single_automation_check()
-        
-        # Test existing endpoints
         self.test_system_status_endpoint()
+        self.test_visa_types_endpoint()
         self.test_logs_endpoint()
         self.test_appointments_endpoint()
         self.test_ocr_endpoint()
         
-        # Clean up - stop system
+        # Test system start/stop with visa configuration
+        print("\n🔧 TESTING SYSTEM CONTROL APIs")
+        print("-" * 40)
+        self.test_system_config_endpoint()
+        self.test_system_start_with_visa_config()
+        self.test_single_automation_check()
         self.test_system_stop()
+        
+        # Test NEW applicant management APIs (main focus)
+        print("\n👥 TESTING NEW APPLICANT MANAGEMENT APIs")
+        print("-" * 40)
+        self.test_create_applicant()
+        self.test_get_all_applicants()
+        self.test_get_specific_applicant()
+        self.test_update_applicant()
+        self.test_get_primary_applicant()
+        
+        # Test NEW login credentials management APIs (main focus)
+        print("\n🔐 TESTING NEW LOGIN CREDENTIALS MANAGEMENT APIs")
+        print("-" * 40)
+        self.test_create_credential()
+        self.test_get_all_credentials()
+        self.test_get_specific_credential()
+        self.test_update_credential()
+        self.test_get_primary_credential()
+        self.test_set_primary_credential()
+        self.test_credential_functionality()
+        
+        # Cleanup tests
+        print("\n🧹 CLEANUP TESTS")
+        print("-" * 40)
+        self.test_delete_applicant()
+        self.test_delete_credential()
         
         # Print summary
         self.print_summary()
