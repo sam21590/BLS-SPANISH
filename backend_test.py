@@ -11,15 +11,9 @@ import os
 from datetime import datetime
 from typing import Dict, Any
 
-# Get backend URL from frontend .env file
+# Get backend URL - use localhost:8001 as specified in review request due to external URL mapping issues
 def get_backend_url():
-    try:
-        with open('/app/frontend/.env', 'r') as f:
-            for line in f:
-                if line.startswith('REACT_APP_BACKEND_URL='):
-                    return line.split('=', 1)[1].strip()
-    except Exception as e:
-        print(f"Error reading frontend .env: {e}")
+    # As per review request: "External URL mapping has issues (404s), so use localhost:8001 for testing"
     return "http://localhost:8001"
 
 BASE_URL = get_backend_url()
